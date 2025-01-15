@@ -1,0 +1,36 @@
+services:
+
+  postgres_db:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: db
+    environment:
+      POSTGRES_DB: commerce
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    networks:
+      - apinetwork
+
+  api:
+    container_name: apiserver
+    platform: linux/amd64
+    depends_on:
+      - postgres_db
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    networks:
+      - apinetwork
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  apinetwork:
+    driver: bridge
