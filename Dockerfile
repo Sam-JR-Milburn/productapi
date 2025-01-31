@@ -12,4 +12,4 @@ RUN pip3 install -r requirements.txt
 
 COPY ./apiserver.py /app
 
-CMD python3 apiserver.py
+CMD fastapi run apiserver.py
