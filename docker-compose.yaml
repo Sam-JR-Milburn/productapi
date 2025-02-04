@@ -2,7 +2,7 @@ services:
 
   db:
     image: postgres:latest
-    restart: unless-stopped
+    restart: always
     container_name: postgres_db
     environment:
       POSTGRES_DB: commerce
@@ -11,7 +11,9 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./db:/var/lib/postgresql/data
+      # Data persistence
+      - ./data:/var/lib/postgresql/data
+      # Schema setup
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - apinetwork

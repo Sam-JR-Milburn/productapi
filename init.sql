@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS commerce;
-USE commerce;
-
 CREATE TABLE IF NOT EXISTS products (
   id SERIAL PRIMARY KEY,
   title VARCHAR(60),

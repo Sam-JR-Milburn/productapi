@@ -5,6 +5,8 @@ time.sleep(3) # Wait for Postgres Server to start.
 import sqlalchemy
 from sqlalchemy import create_engine, insert, text
 from sqlalchemy import Table, Column, Integer, String, Float, MetaData
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Session
 
 from fastapi import FastAPI # Uvicorn ASGI WebServer
 import sys
@@ -20,8 +22,7 @@ try:
     connection = get_connection()
 except:
     print("Failed to get DB connection.")
-    #sys.exit()
-
+    sys.exit()
 
 meta = MetaData()
 # products table
@@ -37,15 +38,12 @@ products = Table(
 
 
 application = FastAPI()
-'''
-@application.get("/")
-async def root():
-    return {"Hi": "There"}
-'''
 
 @application.get("/products")
 async def get_products():
-    return {"productlist": ["product1", "product2"]}
+    if products is not None:
+        return {"dbtablename": products.name}
+    return {"dbtablename": ["can't locate", "the table in the db"]}
 
 @application.get("/products/{productid}")
 async def read_item(productid):
