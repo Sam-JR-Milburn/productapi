@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install python3 python3-pip -y
 RUN pip3 install --upgrade pip
-RUN apt-get install libpq-dev -y
+RUN apt-get install libpq-dev python3-dev -y
 WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt
