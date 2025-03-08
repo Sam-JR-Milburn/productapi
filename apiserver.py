@@ -31,6 +31,7 @@ Products = Table(
     Column('id', Integer, primary_key = True),
     Column('title', String),
     Column('description', String),
+    Column('imageurl', String),
     Column('price', Float)
 )
 
@@ -50,7 +51,7 @@ async def get_products():
     # Go through the returned rows, add them to a list.
     productlist = []
     for product in results:
-        productinfo = {"productid": product.id, "title": product.title, "description": product.description, "price": product.price}
+        productinfo = {"productid": product.id, "title": product.title, "description": product.description, "imageurl": product.imageurl, "price": product.price}
         productlist.append(productinfo)
     # Finally, yield the list as JSON through FastAPI.
     return productlist
@@ -69,6 +70,6 @@ async def read_item(productid):
     # There should only be one product, but SQL is set-theoretic.
     productinfo = None
     for product in results:
-        productinfo = {"productid": product.id, "title": product.title, "description": product.description, "price": product.price}
+        productinfo = {"productid": product.id, "title": product.title, "description": product.description, "imageurl": product.imageurl, "price": product.price}
         break
     return productinfo
