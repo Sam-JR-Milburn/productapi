@@ -68,8 +68,9 @@ async def read_item(productid):
         raise HTTPException(status_code = 404, detail = "the product couldn't be found")
 
     # There should only be one product, but SQL is set-theoretic.
-    productinfo = None
+    productlist = []
     for product in results:
         productinfo = {"productid": product.id, "title": product.title, "description": product.description, "imageurl": product.imageurl, "price": product.price}
+        productlist.append(productinfo)
         break
-    return productinfo
+    return productlist
