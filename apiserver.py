@@ -51,7 +51,7 @@ async def get_products():
     # Go through the returned rows, add them to a list. [Doesn't need description when getting all products.]
     productlist = []
     for product in results:
-        productinfo = {"productid": product.id, "title": product.title, "imageurl": product.imageurl, "price": product.price}
+        productinfo = {"productid": product.id, "title": product.title, "description": product.description, "imageurl": product.imageurl, "price": product.price}
         productlist.append(productinfo)
     # Finally, yield the list as JSON through FastAPI.
     return productlist
